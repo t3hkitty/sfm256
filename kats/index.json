@@ -1,0 +1,16 @@
+[
+  {
+    "id": "classics",
+    "name": "Don't Sue Me Atari Parody Vault",
+    "version": "0.9.0",
+    "description": "Atari parodies from 1977.",
+    "author": "FabiMeow"
+  },
+  {
+    "id": "solitaire",
+    "name": "Psychic Master Solitaire",
+    "version": "1.0.0",
+    "description": "50 variegated decks of psychic solitaire.",
+    "author": "FabiMeow"
+  }
+]

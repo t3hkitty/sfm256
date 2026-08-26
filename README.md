@@ -17,16 +17,23 @@ An ultra-high-density virtual console architecture, vapor storefront, and slop-g
 
 ```
 sfm256/
+├── .github/
+│   └── workflows/
+│       └── validate_and_compile.yml  # Score & achievement validation CI
 ├── core/               # Terminal viewport, frame buffer, WebGL wrapper
 ├── input/              # Gamepad HID, touch-grid, accelerometer sensor engine
 ├── audio/              # Android MediaSession bridge, Spotify URI deep links, BPM sync
 ├── shaders/            # 4-channel semantic remapper ($OUT, $FILL, $ACC, $TXT)
-├── kats/               # Official and community .mdkat roms (formerly cartridges)
+├── kats/               # Official and community .kat roms & compiled index.json
+│   ├── compile_index.py# Index compilation script
+│   ├── index.json      # Compiled index catalog of all Kats
 │   ├── solitaire/      # Psychic Master Solitaire (50 variegated decks)
 │   ├── classics/       # "Don't Sue Me" 1977 Atari Parody Vault
 │   └── slop/           # AI Slop Forge generated games
 ├── tools/              # 3D ASCII Movie Maker (AMM-256) & Mixtmojis Fusion Lab
 ├── vapor/              # Steam lookalike store, fake pricing engine, flameboard
+│   ├── achievements/   # Cryptographic Trophy registry and validators
+│   └── leaderboards/   # Cryptographic public Leaderboards and verification
 └── web/                # GitHub Pages / OBS streamer build
 ```
 
@@ -43,25 +50,25 @@ Android MediaSession hookup, Spotify deep links, chiptune sound drivers, and BPM
 GLSL shaders including the 4-channel semantic remapping engine (`$OUT`, `$FILL`, `$ACC`, `$TXT`).
 
 ### 5. 💾 [kats/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/kats/)
-The `.mdkat` ROM configuration files containing:
-*   [solitaire/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/kats/solitaire/): Psychic Master Solitaire.
-*   [classics/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/kats/classics/): Atari parodies.
-*   [slop/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/kats/slop/): AI-generated game placeholders.
+The `.kat` ROM configuration files and automatic compilation pipeline.
 
 ### 6. 🛠️ [tools/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/tools/)
 ASCII Movie Maker and Mixtmojis sound fusion workspace.
 
 ### 7. 🛍️ [vapor/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/vapor/)
-The storefront mockup, satirical dynamic pricing engine, and player flameboards.
+The storefront mockup, player flameboards, achievements, and leaderboard cryptographic registries.
 
 ### 8. 🌐 [web/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/web/)
 Build system configuration for hosting the virtual console on GitHub Pages and OBS overlay utilities.
-
 
 ---
 
 ## 🛠️ Repository Roadmap & Checklist
 
+- [x] **Phase 0: Monorepo Consolidation**
+  - [x] Integrate Kat index compilation automation.
+  - [x] Set up cryptographic score & achievement validation engines.
+  - [x] Implement automated validation and building with GitHub Actions.
 - [ ] **Phase 1: Foundation & Virtual Console Core**
   - [ ] Initialize retro cell-buffer rendering pipeline.
   - [ ] Implement chiptune sound synthesis via Web Audio API.

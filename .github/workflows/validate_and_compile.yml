@@ -1,0 +1,32 @@
+name: Validate and Compile Monorepo
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-and-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Verify Leaderboard Scores
+        run: python vapor/leaderboards/verify_scores.py
+
+      - name: Validate Achievements Registry
+        run: python vapor/achievements/validation.py
+
+      - name: Compile Kat Index
+        run: python kats/compile_index.py
+
+      - name: Ensure Index is Up to Date
+        run: |
+          git diff --exit-code kats/index.json || (echo "Error: kats/index.json is out of date. Please run 'python kats/compile_index.py' locally and commit the changes." && exit 1)

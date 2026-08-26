@@ -1,0 +1,14 @@
+[
+  {
+    "id": "trophy_first_win",
+    "title": "First Win",
+    "description": "Win your first game in solitaire.",
+    "points": 10
+  },
+  {
+    "id": "trophy_psychic_master",
+    "title": "Psychic Master",
+    "description": "Unlock psychic potential with all 50 decks.",
+    "points": 100
+  }
+]
