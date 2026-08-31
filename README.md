@@ -1,82 +1,58 @@
-# 🎮 Super FabiMeow 256 (SFM256) 🐾
+# 🐾 Super FabiMeow 256 Virtual Console & Vapor Storefront Spec 🐾 (v2.6.0)
 
-```
-      /\_/\
-     ( o.o )  ~*~ Welcome to the 256-Bit Kawaii Virtual Console! ~*~
-     > ^ <
-    /     \
-  (|  | |  |)  [ sfm256 / Architecture Master Index & Idea Vault ]
-   (___(___)
+```text
+    /\_/\           🐾 256-bit retro architecture!
+   ( >.< )  _______
+    > ^ <  /       \
+   /     \|  meow!  |
+  /  | |  | \_______/
+  \_/ \_/ /
 ```
 
-An ultra-high-density virtual console architecture, vapor storefront, and slop-generation hub. 
+Welcome to the official developer playbook and system architecture specification for **Super FabiMeow 256 (sfm256/)**! 
+
+This virtual console unifies your games, custom procedural visualizers, and satirical digital storefronts under a **100% local-first, plain-text Markdown database ecosystem**. Games are not sterile ROM blocks—they are physical virtual **KATS** (`.kat` files) that run entirely inside your browser, sandbox, or PRoot wrappers.
 
 ---
 
-## 🗺️ Master Architecture & Component Index
+## 🚀 Key Architectural Subsystems
 
-```
+### 🖥️ 1. WebGL Viewport & 4-Channel Palette Remapper (`core/viewport.ts`)
+Decouples retro assets from hardcoded RGB values, allowing dynamic, high-contrast theme switches on the fly utilizing 4-channel color registers:
+* **`$OUT`**: Border outlines, grid dividers, and high-Brutalist bounding elements.
+* **`$FILL`**: Pastel backing panels and cards.
+* **`$ACC`**: High-frequency notification tickers, strobe loops, and accents.
+* **`$TXT`**: High-readability typography labels and ranks.
+
+### 🃏 2. Psychic Master Solitaire (`cartridges/solitaire/psychic_solitaire.ts`)
+The flagship KATS cartridge:
+* **Sentient Whining Cards**: Idle stacks monitor elapsed time and throw kaomoji-driven tantrums `(｡•́︿•̀｡)` if neglected.
+* **Cozy Foundation Beds**: Foundations styled as bunk beds `[~~~~~~~~~]` where cards can be neatly tucked to rest.
+* **Temporal Urgency Metronome**: Accelerates visual strobes as combo decays, escalating tension to keep your focus locked.
+
+### 🛒 3. Satirical Vapor Storefront (`vapor/vapor_storefront.ts`)
+A humorous take on proprietary cloud platforms:
+* **Hyperbolic Discounts**: Parody game editions priced at \$0.00 but shown with dramatic markdown tags (e.g. `-$999,999.00`).
+* **Procedural Troll Flameboards**: Live discussion streams displaying toxic player arguments with conflicting horas played.
+
+---
+
+## ⚙️ Project File Directory Layout
+
+Your monorepo conforms to the standard static deployment model:
+
+```text
 sfm256/
-├── .github/
-│   └── workflows/
-│       └── validate_and_compile.yml  # Score & achievement validation CI
 ├── core/               # Terminal viewport, frame buffer, WebGL wrapper
-├── input/              # Gamepad HID, touch-grid, accelerometer sensor engine
-├── audio/              # Android MediaSession bridge, Spotify URI deep links, BPM sync
-├── shaders/            # 4-channel semantic remapper ($OUT, $FILL, $ACC, $TXT)
-├── kats/               # Official and community .kat roms & compiled index.json
-│   ├── compile_index.py# Index compilation script
-│   ├── index.json      # Compiled index catalog of all Kats
-│   ├── solitaire/      # Psychic Master Solitaire (50 variegated decks)
-│   ├── classics/       # "Don't Sue Me" 1977 Atari Parody Vault
-│   └── slop/           # AI Slop Forge generated games
-├── tools/              # 3D ASCII Movie Maker (AMM-256) & Mixtmojis Fusion Lab
-├── vapor/              # Steam lookalike store, fake pricing engine, flameboard
-│   ├── achievements/   # Cryptographic Trophy registry and validators
-│   └── leaderboards/   # Cryptographic public Leaderboards and verification
-└── web/                # GitHub Pages / OBS streamer build
+├── shaders/            # GLSL fragment remappers ($OUT, $FILL, $ACC, $TXT)
+├── cartridges/         
+│   ├── solitaire/      # Psychic Master Solitaire cartridge
+│   └── classics/       # "Don't Sue Me" Atari parodies
+├── tools/              # 3D ASCII Movie Maker (AMM-256) wireframe rendering
+└── vapor/              # Satirical Steam-lookalike storefront and receipt generators
 ```
-
-### 1. 🕹️ [core/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/core/)
-Virtual console engine base, terminal viewport mechanics, cell buffer rendering pipeline, and WebGL wrappers.
-
-### 2. 🔌 [input/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/input/)
-Hardware controller bridge, touchscreen grid configuration, and mobile/accelerometer telemetry sensors.
-
-### 3. 🔊 [audio/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/audio/)
-Android MediaSession hookup, Spotify deep links, chiptune sound drivers, and BPM synchronizer.
-
-### 4. 🎨 [shaders/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/shaders/)
-GLSL shaders including the 4-channel semantic remapping engine (`$OUT`, `$FILL`, `$ACC`, `$TXT`).
-
-### 5. 💾 [kats/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/kats/)
-The `.kat` ROM configuration files and automatic compilation pipeline.
-
-### 6. 🛠️ [tools/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/tools/)
-ASCII Movie Maker and Mixtmojis sound fusion workspace.
-
-### 7. 🛍️ [vapor/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/vapor/)
-The storefront mockup, player flameboards, achievements, and leaderboard cryptographic registries.
-
-### 8. 🌐 [web/](file:///c:/Users/lorik/.gemini/antigravity/scratch/sfm256/web/)
-Build system configuration for hosting the virtual console on GitHub Pages and OBS overlay utilities.
 
 ---
 
-## 🛠️ Repository Roadmap & Checklist
-
-- [x] **Phase 0: Monorepo Consolidation**
-  - [x] Integrate Kat index compilation automation.
-  - [x] Set up cryptographic score & achievement validation engines.
-  - [x] Implement automated validation and building with GitHub Actions.
-- [ ] **Phase 1: Foundation & Virtual Console Core**
-  - [ ] Initialize retro cell-buffer rendering pipeline.
-  - [ ] Implement chiptune sound synthesis via Web Audio API.
-- [ ] **Phase 2: Parody Storefront Simulation**
-  - [ ] Construct the satirical pricing matrix and MSRP engine.
-  - [ ] Seed the Atari parody database.
-- [ ] **Phase 3: Visual & WebGL Frontend**
-  - [ ] Write canvas CRT shader and ASCII renderer.
-  - [ ] Hook up keyboard, mouse, and simulated noise controllers.
-- [ ] **Phase 4: Fusion & Export**
-  - [ ] Implement ASCII movie compiler and mixtape export.
+## 📜 MIT License & Open Source Notice
+This project is licensed under the standard developer-friendly **MIT License**. Feel free to fork, customize, and pack your own virtual KATS!
