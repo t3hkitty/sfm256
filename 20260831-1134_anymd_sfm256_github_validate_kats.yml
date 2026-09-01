@@ -1,0 +1,87 @@
+# Zettelkasten ID: 20260831-1134
+# Project: sfm256-virtual-console
+# Role: Automated GitHub Actions pipeline to validate .kat cartridge metadata and compile the registry JSON
+
+name: Validate and Deploy Kats Registry
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'kats/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'kats/**'
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python Runtime
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Kat Frontmatter Linter and Purr-Check
+        run: |
+          python -c "
+          import os, sys, yaml
+          kat_dir = 'kats'
+          errors = []
+          if not os.path.exists(kat_dir):
+              print('😿 Kats directory missing!')
+              sys.exit(1)
+          for f in os.listdir(kat_dir):
+              if f.endswith('.kat'):
+                  p = os.path.join(kat_dir, f)
+                  print(f'Checking {f}...')
+                  try:
+                      with open(p, 'r', encoding='utf-8') as file:
+                          content = file.read()
+                      if not content.startswith('---'):
+                          errors.append(f'{f}: Missing frontmatter separator ---')
+                          continue
+                      parts = content.split('---')
+                      header = yaml.safe_load(parts[1])
+                      required = ['appId', 'title', 'version', 'fake_msrp']
+                      for req in required:
+                          if req not in header:
+                              errors.append(f'{f}: Missing required parameter {req}')
+                  except Exception as e:
+                      errors.append(f'{f}: Parse error: {str(e)}')
+          if errors:
+              for err in errors:
+                  print(f'❌ {err}')
+              sys.exit(1)
+          print('🟢 All game kats are validated and clean!')
+          "
+
+      - name: Compile Master Store Registry
+        run: |
+          python -c "
+          import os, yaml, json
+          kat_dir = 'kats'
+          registry = []
+          for f in os.listdir(kat_dir):
+              if f.endswith('.kat'):
+                  p = os.path.join(kat_dir, f)
+                  with open(p, 'r', encoding='utf-8') as file:
+                      parts = file.read().split('---')
+                  header = yaml.safe_load(parts[1])
+                  registry.append(header)
+          with open('kats/index.json', 'w', encoding='utf-8') as f_out:
+              json.dump(registry, f_out, indent=2)
+          print('🎉 compiled index.json containing all verified kats!')
+          "
+
+      - name: Deploy Registry to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./kats
+          publish_branch: gh-pages
